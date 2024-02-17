@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { Logo, MobileNav } from ".";
+import { Logo, MainNav, MobileNav } from ".";
 
 const Header: FC = () => {
     return (
@@ -14,6 +14,9 @@ const Header: FC = () => {
                 </Link>
                 <div className="md:hidden">
                     <MobileNav />
+                </div>
+                <div className="hidden md:block">
+                    <MainNav />
                 </div>
             </div>
         </header>
