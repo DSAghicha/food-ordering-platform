@@ -1,10 +1,18 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
+import { Layout } from "./layouts";
 
 const AppRoutes: FC = () => {
     return (
         <Routes>
-            <Route path="/" element={<span>Home Page</span>} />
+            <Route
+                path="/"
+                element={
+                    <Layout>
+                        <span>Home Page</span>
+                    </Layout>
+                }
+            />
             <Route
                 path="/user-profile"
                 element={<span>User Profile Page</span>}
