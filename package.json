@@ -1,0 +1,10 @@
+{
+    "name": "zomato-clone",
+    "version": "1.0.0",
+    "scripts": {},
+    "dependencies": {},
+    "devDependencies": {},
+    "license": "MIT",
+    "author": "Darshaan D Aghicha <dsaghicha>",
+    "repository": "https://github.com/DSAghicha/food-ordering-platform"
+}
