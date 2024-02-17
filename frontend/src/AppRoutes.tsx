@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./layouts";
+import { HomePage } from "./pages";
 
 const AppRoutes: FC = () => {
     return (
@@ -9,7 +10,7 @@ const AppRoutes: FC = () => {
                 path="/"
                 element={
                     <Layout>
-                        <span>Home Page</span>
+                        <HomePage />
                     </Layout>
                 }
             />
