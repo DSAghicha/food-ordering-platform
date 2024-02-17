@@ -1,9 +1,6 @@
 import { Footer, Header, Hero } from "@/components";
-import { FC, ReactNode } from "react";
-
-type Props = {
-    children: ReactNode;
-};
+import { Props } from "@/interfaces";
+import { FC } from "react";
 
 const Layout: FC<Props> = ({ children }: Props) => {
     return (
