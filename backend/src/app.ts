@@ -1,9 +1,18 @@
 import cors from "cors";
+import { randomBytes } from "crypto";
 import "dotenv/config";
-import express, { Request, Response, json, raw, urlencoded } from "express";
+import express, {
+    NextFunction,
+    Request,
+    Response,
+    json,
+    raw,
+    urlencoded,
+} from "express";
 import mongoose from "mongoose";
 import { version } from "../package.json";
 import { myUserRoutes } from "./routes";
+import { FileLogger } from "./utils";
 
 mongoose
     .connect(process.env.MONGODB_URL as string, { dbName: "mern_eats" })
@@ -15,6 +24,24 @@ app.use(json({ limit: "10kb" }));
 app.use(urlencoded({ limit: "10kb", extended: true }));
 app.use(raw());
 app.use(cors());
+app.use((req: Request, res: Response, next: NextFunction) => {
+    console.warn("IN APP CONFIG!");
+    const txId = randomBytes(12).toString("hex");
+    FileLogger.reqLog(
+        `[${txId}] METHOD: [${req.method}], URL: [${req.url}], IP: [${
+            req.socket.remoteAddress
+        }], BODY: [${JSON.stringify(req.body)}], QUERY: [${JSON.stringify(
+            req.query
+        )}]`
+    );
+    req.body["trafficId"] = txId;
+    res.on("finish", () => {
+        FileLogger.reqLog(
+            `[${txId}] METHOD: [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}], STATUS - [${res.statusCode}]`
+        );
+    });
+    next();
+});
 
 app.get("/", (_: Request, res: Response) => {
     res.send(`Welcome to our restaurant! ${version}`);
