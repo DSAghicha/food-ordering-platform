@@ -12,7 +12,6 @@ const reqLog = (message: string): void => {
     const logFilePath = `${logDirPath}/request_${dayjs().format(
         "DDMMYYYY"
     )}.log`;
-    console.log(logFilePath);
     const log = `[${dateTimeStamp}] ${message}\n`;
     appendFileSync(logFilePath, log);
 };
