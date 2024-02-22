@@ -14,4 +14,5 @@ Similarly, in the frontend folder create `.env` file in which add the following 
 VITE_AUTH0_DOMAIN=
 VITE_AUTH0_CLIENT_ID=
 VITE_AUTH0_REDIRECT_URI=
+VITE_API_BASE_URL=
 ```
