@@ -1,5 +1,6 @@
 import cors from "cors";
 import { randomBytes } from "crypto";
+import dayjs from "dayjs";
 import "dotenv/config";
 import express, {
     NextFunction,
@@ -26,6 +27,7 @@ app.use(raw());
 app.use(cors());
 app.use((req: Request, res: Response, next: NextFunction) => {
     console.warn("IN APP CONFIG!");
+    const startTime = dayjs();
     const txId = randomBytes(12).toString("hex");
     FileLogger.reqLog(
         `[${txId}] METHOD: [${req.method}], URL: [${req.url}], IP: [${
@@ -36,8 +38,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     );
     req.body["trafficId"] = txId;
     res.on("finish", () => {
+        const endTime = dayjs();
+        const duration = endTime.diff(startTime, "milliseconds");
         FileLogger.reqLog(
-            `[${txId}] METHOD: [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}], STATUS - [${res.statusCode}]`
+            `[${txId}] METHOD: [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}], STATUS - [${res.statusCode}], [${duration}ms]`
         );
     });
     next();
